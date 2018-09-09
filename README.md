@@ -6,6 +6,27 @@
 
 Tab navigators for React Navigation.
 
+## About this fork
+Added the ability to hide specific titles from the tab bar
+ #### usage: 
+ in `tabBarOptions` add `tabKeyToHideLabel` where it contains a string of the tabs names to hide, Example: 
+ 
+`const MainTabsNavigation = createMaterialTopTabNavigator(
+    {
+        Discover: DiscoverTab,
+        Messages: MessagesTab,
+        Notifications: NotificationsTab,
+        Profile: ProfileTab
+    }, {
+        ....
+        tabBarOptions: {
+            ...
+            tabKeyToHideLabel: 'ProfileNotifications',
+            ....
+        }
+    }
+);`
+
 ## Installation
 
 With react-navigation@^2.0.0, no installation is required.
