@@ -167,8 +167,9 @@ class TabBarBottom extends React.Component<Props> {
 
     if (Platform.isPad) {
       let maxTabItemWidth = DEFAULT_MAX_TAB_ITEM_WIDTH;
-
-      const flattenedStyle = StyleSheet.flatten(tabStyle);
+      const flattenedStyle = (typeof tabStyle === 'function')
+        ? StyleSheet.flatten(tabStyle({ navigation: this.props.navigation, focused: false }))
+        : StyleSheet.flatten(tabStyle);
 
       if (flattenedStyle) {
         if (typeof flattenedStyle.width === 'number') {
@@ -204,7 +205,7 @@ class TabBarBottom extends React.Component<Props> {
         : styles.tabBarRegular,
       style,
     ];
-
+    
     return (
       <SafeAreaView style={tabBarStyle} forceInset={safeAreaInset}>
         {routes.map((route, index) => {
@@ -235,7 +236,9 @@ class TabBarBottom extends React.Component<Props> {
                 this._shouldUseHorizontalLabels()
                   ? styles.tabLandscape
                   : styles.tabPortrait,
-                tabStyle,
+                (typeof tabStyle === 'function')
+                  ? tabStyle({ focused, navigation })
+                  : tabStyle,
               ]}
             >
               {this._renderIcon(scene)}
